@@ -1,7 +1,9 @@
 ##***************************
 ## Assignment 01 - Group 10 
 ## 2026-11-02
-##
+
+#What did I do now?
+
 ##***************************
 ## _ Packages used -------
 library(tidyverse)
