@@ -18,6 +18,7 @@ library(viridis)
 # + scale_color/fill_viridis(discrete = T/F)
 theme_set(theme_light())
 
+
 rm(list = ls())
 
 
@@ -29,12 +30,11 @@ df_patagoniensis
 
 
 ## _Import T. spiralis dataset
-
 df_spiralis = read_csv("../data/trichinella_spiralis_te.csv")
 df_spiralis 
 
-## Clean dataset columns -----
 
+## Clean dataset columns -----
 df_patagoniensis =
   df_patagoniensis |> 
   mutate(
@@ -50,19 +50,18 @@ df_spiralis =
     in_repeat_end = as.numeric(str_replace_all(in_repeat_end, "\\(|\\)", ""))
   )
 
+
 ## Define non-TE classes to exclude -----
-
-
 ls_non_te = c("simple_repeat", "Simple_repeat",
               "Low_complexity", "Satellite",
               "rRNA", "snRNA", "ARTEFACT",
               "Unknown")
 ls_non_te
 
+
 ## Sumarize data -----
 
 ## _Summarize T. spiralis TE annotations -----
-
 df_spiralis_summary =
   df_spiralis |>
   filter(matching_class %notin% ls_non_te) |>
@@ -79,7 +78,6 @@ df_spiralis_summary
 
 
 ## _Summarize T. patagoniensis TE annotations -----
-
 df_patagoniensis_summary =
   df_patagoniensis |>
   filter(matching_class %notin% ls_non_te) |>
@@ -92,17 +90,17 @@ df_patagoniensis_summary =
   arrange(desc(annotation_count))
 df_patagoniensis_summary
 
+
 ## COMBINING -----
 
 ## _Combine species summaries -----
-
 df_comparison =
   bind_rows(df_spiralis_summary,
             df_patagoniensis_summary)
 df_comparison
 
-## _Combine raw TE annotation datasets -----
 
+## _Combine raw TE annotation datasets -----
 df_TE_combined =
   bind_rows(
     df_spiralis |> mutate(species = "T. spiralis"),
@@ -110,17 +108,16 @@ df_TE_combined =
   )
 df_TE_combined
 
+
 ## RANKING TE CLASSES -----
 
 ## _Rank TE classes by annotation count -----
-
 df_comparison |>
   group_by(species) |>
   arrange(desc(annotation_count), .by_group = TRUE)
 
 
 ## _Rank TE classes by total annotated length -----
-
 df_comparison |>
   group_by(species) |>
   arrange(desc(total_length), .by_group = TRUE)
@@ -132,10 +129,10 @@ df_comparison |>
   arrange(desc(total_length), .by_group = TRUE) |> 
   slice_head(n = 3)
 
+
 ## PLOTTING -----
 
 ## _Plot distribution of TE annotation lengths -----
-
 df_TE_combined |>
   filter(matching_class %notin% ls_non_te) |>
   ggplot(aes(x = qry_width)) +
@@ -149,7 +146,6 @@ df_TE_combined |>
 
 
 ## _Plot annotation counts against total annotated lengths -----
-
 df_comparison |> 
   ggplot(aes(x = annotation_count, y = total_length)) +
   geom_point() +
@@ -160,10 +156,7 @@ df_comparison |>
        y = "annotated sequence length(bp)")
 
 
-
 ## _Plot average TE length by class -----
-
-
 df_comparison |>
   ggplot(aes(x = matching_class,
              y = total_length / annotation_count)) +
