@@ -1,7 +1,15 @@
+# ==============================================================================
+# Title: BINF*6210 Assignment #2 - Collaborative Script Revision
+# Primary Author: Yichen Shen (GitHub: yichenhellenshen1201)
+#   - Role: Wrote the original Assignment #1 R script, including data import,
+#     filtering, summarization, binding, and initial exploratory visualizations.
+# Secondary Contributor: Purushoth Puvanendran (GitHub: Purushoth-Archive)
+#   - Role: Revised comment formatting to organize outline display, 
+# ==============================================================================
+
 ##***************************
 ## Assignment 01 - Group 10 
 ## 2026-11-02
-## Group Members: Yichen Shen, ...
 ##***************************
 ## Packages used -------
 library(tidyverse)
