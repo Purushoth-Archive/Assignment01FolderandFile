@@ -111,7 +111,7 @@ df_nelsoni_summary =
     annotation_count = n(),
     total_length = sum(qry_width, na.rm = TRUE)
   ) |>
-  mutate(species = "df_nelsoni") |> 
+  mutate(species = "T. nelsoni") |> 
   arrange(desc(annotation_count))
 df_nelsoni_summary
 
