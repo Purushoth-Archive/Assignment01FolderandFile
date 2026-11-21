@@ -59,7 +59,8 @@ df_spiralis =
   df_spiralis |> 
   mutate(
     qry_left = as.numeric(str_replace_all(qry_left, "\\(|\\)", "")),
-    in_repeat_end = as.numeric(str_replace_all(in_repeat_end, "\\(|\\)", ""))
+    in_repeat_end = as.numeric(str_replace_all(in_repeat_end, "\\(|\\)", "")),
+    no_bp_in_complement = as.numeric(str_replace_all(no_bp_in_complement, "\\(|\\)", ""))
   )
 
 
