@@ -160,8 +160,11 @@ df_comparison |>
 
 ## PLOTTING -----
 
+# Create output directory if it doesn't already exist
+dir.create("output", showWarnings = FALSE)
+
 ## _Plot distribution of TE annotation lengths -----
-df_TE_combined |>
+p_annotation_length = df_TE_combined |>
   filter(matching_class %notin% ls_non_te) |>
   ggplot(aes(x = qry_width, fill = species)) +
   geom_histogram(colour = "white") +
@@ -181,8 +184,10 @@ df_TE_combined |>
   )
 # ADDITION: colors the 3 different species instead of leaving all graphs grey. Plus, I have added stat_bin to leave a number on the top of each histo bar. This should help with identifying our smaller values and contrast similar ones.
 
+ggsave("output/te_length_distribution.png", plot = p_annotation_length, width = 12, height = 6, dpi = 300)
+
 ## _Plot annotation counts against total annotated lengths -----
-df_comparison |> 
+p_TEabundance = df_comparison |> 
   ggplot(aes(x = annotation_count, y = total_length, color = species)) +
   geom_point() +
   geom_smooth() +
@@ -192,8 +197,10 @@ df_comparison |>
        y = "annotated sequence length(bp)")
 # ADDITION: colors the 3 different species instead of leaving all graphs grey. 
 
+ggsave("output/te_abundance_vs_length.png", plot = p_TEabundance, width = 12, height = 6, dpi = 300)
+
 ## _Plot average TE length by class -----
-df_comparison |>
+p_TE_avglength = df_comparison |>
   ggplot(aes(x = matching_class,
              y = total_length / annotation_count,
              fill = matching_class)) +
@@ -209,3 +216,4 @@ df_comparison |>
   )
 # ADDITION: Because now we have 3 graphs sharing a y-axis, to support contrasting the overwhelming amount of TE classess, I added color coding for each TE class to support visual comparison.
 
+ggsave("output/avg_te_length_by_class.png", plot = p_TE_avglength, width = 12, height = 8, dpi = 300)
