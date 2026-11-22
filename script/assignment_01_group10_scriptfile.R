@@ -4,7 +4,10 @@
 #   - Role: Wrote the original Assignment #1 R script, including data import,
 #     filtering, summarization, binding, and initial exploratory visualizations.
 # Secondary Contributor: Purushoth Puvanendran (GitHub: Purushoth-Archive)
-#   - Role: Revised comment formatting to organize outline display, 
+#   - Role: Revised comment formatting to organize outline display, integrated
+#     T. nelsoni data, enhanced comparative visualizations with color coding
+#     and labels, automated figure exports, and added Spearman rank correlation
+#     testing.
 # ==============================================================================
 
 ##***************************
