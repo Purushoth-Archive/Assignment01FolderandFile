@@ -163,37 +163,49 @@ df_comparison |>
 ## _Plot distribution of TE annotation lengths -----
 df_TE_combined |>
   filter(matching_class %notin% ls_non_te) |>
-  ggplot(aes(x = qry_width)) +
-  geom_histogram() +
+  ggplot(aes(x = qry_width, fill = species)) +
+  geom_histogram(colour = "white") +
+  stat_bin(
+    geom = "text",
+    aes(label = after_stat(ifelse(count > 0, count, ""))),
+    vjust = -0.3,
+    size = 2
+  ) +
+  scale_fill_brewer(palette = "Set2") +
   facet_grid(~ species) +
   labs(
     title = "Distribution of TE Annotation Lengths",
     x = "Annotated TE length (bp)",
-    y = "Frequency"
+    y = "Frequency",
+    fill = "Species"
   )
-
+# ADDITION: colors the 3 different species instead of leaving all graphs grey. Plus, I have added stat_bin to leave a number on the top of each histo bar. This should help with identifying our smaller values and contrast similar ones.
 
 ## _Plot annotation counts against total annotated lengths -----
 df_comparison |> 
-  ggplot(aes(x = annotation_count, y = total_length)) +
+  ggplot(aes(x = annotation_count, y = total_length, color = species)) +
   geom_point() +
   geom_smooth() +
   facet_grid(~ species) +
   labs(title = "Comparison of TE Abundance & Length",
        x = "annotated count",
        y = "annotated sequence length(bp)")
-
+# ADDITION: colors the 3 different species instead of leaving all graphs grey. 
 
 ## _Plot average TE length by class -----
 df_comparison |>
   ggplot(aes(x = matching_class,
-             y = total_length / annotation_count)) +
+             y = total_length / annotation_count,
+             fill = matching_class)) +
   geom_col() +
   coord_flip() +
+  scale_fill_viridis_d() +
   facet_grid(~ species) +
   labs(
     title = "Average TE Length by Class",
     x = "TE class",
-    y = "Average annotated length (bp)"
+    y = "Average annotated length (bp)",
+    fill = "TE class"
   )
+# ADDITION: Because now we have 3 graphs sharing a y-axis, to support contrasting the overwhelming amount of TE classess, I added color coding for each TE class to support visual comparison.
 
