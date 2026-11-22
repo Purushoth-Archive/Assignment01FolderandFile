@@ -217,3 +217,15 @@ p_TE_avglength = df_comparison |>
 # ADDITION: Because now we have 3 graphs sharing a y-axis, to support contrasting the overwhelming amount of TE classess, I added color coding for each TE class to support visual comparison.
 
 ggsave("output/avg_te_length_by_class.png", plot = p_TE_avglength, width = 12, height = 8, dpi = 300)
+
+
+## STATISTICAL TESTING -----
+
+## _Spearman correlation: Does TE abundance significantly correlate with total annotated length?
+cor_abundance_length <- cor.test(df_comparison$annotation_count,
+                                 df_comparison$total_length,
+                                 method = "spearman"
+                                 )
+cor_abundance_length
+
+# I chose Spearman's rank correlation to test how strongly TE class abundance rises or falls alongside total annotated sequence length. Plot 2 shows that our data is heavily skewed, because the data is not normally distributed and contains extreme outliers, a default Pearson test would be heavily distorted. Kendall is much stricter on small, pairwise rank differences and better suited for tiny sample sizes, whereas our goal is simply to test the overall upward trend across all TE classes using ranks.
